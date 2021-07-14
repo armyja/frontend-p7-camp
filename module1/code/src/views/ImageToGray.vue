@@ -8,13 +8,14 @@
     </section>
     <section>
       灰度图片:
+      <a @click="download" class="btn">下载</a>
       <canvas ref="grayImage"></canvas>
     </section>
   </div>
 </template>
 
 <script>
-import { imageToGray } from "@/utils/imageToGray.js"
+import { imageToGray } from "@/utils/imageToGray.js";
 // @ is an alias to /src
 
 export default {
@@ -73,6 +74,16 @@ export default {
       let imgToGray = new imageToGray(canvas, url);
       imgToGray.render();
     },
+    download() {
+      var dataImg = new Image();
+      dataImg.src = this.$refs.grayImage.toDataURL("image/png");
+      document.body.appendChild(dataImg);
+      var alink = document.createElement("a");
+      alink.href = dataImg.src;
+      alink.download = "greyImage";
+      document.body.appendChild(alink);
+      alink.click();
+    },
   },
 };
 </script>
@@ -85,6 +96,9 @@ export default {
   }
   img {
     border: 1px solid #ccc;
+  }
+  a {
+    text-align: center;
   }
 }
 </style>
