@@ -31,10 +31,10 @@ export default {
     convert() {
       SIGNS[1];
       // try {
-      if (isNaN(parseFloat(this.dec))) {
-        window.alert("数据有误");
+      if (!isNaN(parseFloat(this.dec))) {
+        this.hex = dec2hexDouble(parseFloat(this.dec));
       } else {
-        this.hex = dec2hexDouble();
+        window.alert("请输入十进制小数");
       }
       // } catch (err) {
       // this.hex = "";
