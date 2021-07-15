@@ -11,4 +11,7 @@ module.exports = {
             });
         config.module.rule("js").exclude.add(/\.worker\.js$/);
     },
+    devServer: {
+        disableHostCheck: true
+    }
 }
