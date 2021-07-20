@@ -12,18 +12,15 @@ let currentTextNode = null;
 
 function emit(token) {
     let top = stack[stack.length - 1];
-
     if (token.type === "startTag") {
         let element = {
             type: "element",
             children: [],
             attributes: []
         };
-
         element.tagName = token.tagName;
-
         for (let p in token) {
-            if (p !== "type" && p != "tagName") {
+            if (p !== "type" && p !== "tagName" && p !== "isSelfClosing") {
                 element.attributes.push({
                     name: p,
                     value: token[p]
@@ -45,7 +42,7 @@ function emit(token) {
     } else if (token.type === "endTag") {
         if (top.tagName != token.tagName) {
             throw new Error("Tag start end doesn't match!");
-        } 
+        }
         else {
             /**
              * 遇到 style 标签，执行添加 CSS 规则的操作
@@ -67,7 +64,7 @@ function emit(token) {
         }
         if (currentTextNode) {
             currentTextNode.content += token.content;
-        }  
+        }
     }
 }
 
@@ -290,15 +287,9 @@ export function parseHTML(html) {
     currentAttribute = null;
     currentTextNode = null;
     let state = data;
-    let count = 0;
     for (let c of html) {
         state = state(c);
-        count++;
     }
     state = state(EOF);
     return stack[0];
 }
-
-// module.exports = {
-//     parseHTML,
-// }
