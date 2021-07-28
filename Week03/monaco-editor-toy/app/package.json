@@ -1,0 +1,13 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "build": "webpack",
+    "simpleserver": "yaserver --root ./dist --port 3003"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
