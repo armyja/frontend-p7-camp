@@ -2,10 +2,12 @@ import * as monaco from "monaco-editor";
 import "./index.css";
 import { Component, createElement } from "./framework/framework";
 import axios from "axios";
+import { default as AnsiUp } from "ansi_up";
 createElement;
 
 const SERVER_URL = "http://localhost:8082";
 const APP_URL = "http://localhost:3003";
+const ansi_up = new AnsiUp();
 
 // @ts-ignore
 self.MonacoEnvironment = {
@@ -25,7 +27,7 @@ self.MonacoEnvironment = {
     return "./editor.worker.bundle.js";
   },
 };
-console.log(Object.keys(self))
+console.log(Object.keys(self));
 let app: Component = <div class="editor" id="monaco-editor"></div>;
 app.mountTo(document.getElementById("left-container") as HTMLElement);
 
@@ -110,11 +112,12 @@ preview.addEventListener("click", function preview() {
 });
 
 function log(str) {
-  let textArea: HTMLTextAreaElement = document.getElementById(
+  let textArea: HTMLPreElement = document.getElementById(
     "console"
-  ) as HTMLTextAreaElement;
-  textArea.value += str + "\n";
-  textArea.scrollTop = textArea.scrollHeight;
+  ) as HTMLPreElement;
+  console.log(ansi_up.ansi_to_html(str));
+  textArea.innerHTML += ansi_up.ansi_to_html(str);
+  textArea.scrollTo({ top: textArea.scrollHeight });
 }
 
 let previewWindow: Component = (

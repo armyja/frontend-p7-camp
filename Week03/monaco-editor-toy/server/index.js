@@ -50,7 +50,7 @@ function publish(req, res) {
       console.log(stderr);
       res.setHeader("Access-Control-Allow-Origin", "*");
 
-      res.write("stdout:" + stdout + "\n" + "stderr:" + stderr);
+      res.write(stdout + "\n" + stderr);
       res.end();
     }
   );

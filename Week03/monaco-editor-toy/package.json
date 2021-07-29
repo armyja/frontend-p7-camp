@@ -33,6 +33,7 @@
     "yaserver": "^0.3.0"
   },
   "dependencies": {
+    "ansi_up": "^5.0.1",
     "axios": "^0.21.1"
   }
 }
