@@ -1,0 +1,14 @@
+{
+  "name": "week06",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "server": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nodejs-websocket": "^1.7.2"
+  }
+}
