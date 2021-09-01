@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/socket.io@4.2.0/client-dist/socket.io.js" integrity="sha256-rntBe6iTTkeyQOk1rjOUeT3NC3a1/qS1hgz7EyJyGRY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/rtcmulticonnection@3.7.0/dist/RTCMultiConnection.min.js" integrity="sha256-GYdh9tUQ9CTgnoXocu810ZewyvBQIbdkPXx6jO9f5vo=" crossorigin="anonymous"></script>
+</head>
+<body>
+    asdd
+</body>
+<script>
+    
+// this object is used to get uniquie rooms based on this demo
+// i.e. only those rooms that are created on this page
+var publicRoomIdentifier = 'dashboard';
+
+var connection = new RTCMultiConnection();
+connection.socketURL = '/';
+
+/// make this room public
+connection.publicRoomIdentifier = publicRoomIdentifier;
+connection.socketMessageEvent = publicRoomIdentifier;
+
+// keep room opened even if owner leaves
+connection.autoCloseEntireSession = true;
+
+connection.connectSocket(function(socket) {
+    looper();
+
+    socket.on('disconnect', function() {
+        location.reload();
+    });
+});
+
+function looper() {
+    // if (!$('#rooms-list').length) return;
+    connection.socket.emit('get-public-rooms', publicRoomIdentifier, function(listOfRooms) {
+        // updateListOfRooms(listOfRooms);
+        console.log(listOfRooms);
+        setTimeout(looper, 3000);
+    });
+}
+</script>
+</html>
